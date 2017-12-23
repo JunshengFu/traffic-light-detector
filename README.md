@@ -23,6 +23,13 @@ python main.py
 
 ```
 
+```sh
+# where commands = [True, False...], and True: go, False: stop
+
+commands = detect_traffic_lights(PATH_TO_TEST_IMAGES_DIR, MODEL_NAME, Num_images, plot_flag=False)
+
+```
+
 #### 4. An example
 
 A very simple network is used here:
