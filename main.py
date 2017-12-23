@@ -95,12 +95,14 @@ def detect_traffic_lights(PATH_TO_TEST_IMAGES_DIR, MODEL_NAME, Num_images, plot_
     Detect traffic lights and draw bounding boxes around the traffic lights
     :param PATH_TO_TEST_IMAGES_DIR: testing image directory
     :param MODEL_NAME: name of the model used in the task
-    :return: boxes: positions of the traffic lights
+    :return: commands: True: go, False: stop
     """
 
     #--------test images------
     TEST_IMAGE_PATHS = [ os.path.join(PATH_TO_TEST_IMAGES_DIR, 'img_{}.jpg'.format(i)) for i in range(1, Num_images+1) ]
 
+
+    commands = []
 
     # What model to download
     MODEL_FILE = MODEL_NAME + '.tar.gz'
@@ -173,15 +175,16 @@ def detect_traffic_lights(PATH_TO_TEST_IMAGES_DIR, MODEL_NAME, Num_images, plot_
                 red_flag = read_traffic_lights(image, np.squeeze(boxes), np.squeeze(scores), np.squeeze(classes).astype(np.int32))
                 if red_flag:
                     print('{}: stop'.format(image_path))  # red or yellow
+                    commands.append(False)
                 else:
                     print('{}: go'.format(image_path))
-                # classify_state(lights_boxes, image, use_normalized_coordinates=True)
+                    commands.append(True)
 
                 # Visualization of the results of a detection.
                 if plot_flag:
                     plot_origin_image(image_np, boxes, classes, scores, category_index)
 
-
+    return commands
 
 if __name__ == "__main__":
 
@@ -190,4 +193,5 @@ if __name__ == "__main__":
     PATH_TO_TEST_IMAGES_DIR = './test_images'
     MODEL_NAME = 'faster_rcnn_resnet101_coco_11_06_2017'
 
-    detect_traffic_lights(PATH_TO_TEST_IMAGES_DIR, MODEL_NAME, Num_images, plot_flag=False)
+    commands = detect_traffic_lights(PATH_TO_TEST_IMAGES_DIR, MODEL_NAME, Num_images, plot_flag=False)
+    print(commands)
