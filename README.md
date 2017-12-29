@@ -10,9 +10,7 @@ If the lights are "red" or "yellow", it outputs command "stop"; If the
 #### 1. How to install Dependence:
 
 
-[How to install TensorFlow Object Detection API](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/installation.md)
-
-
+* [environment-gpu.yml](environment-gpu.yml) environment file with GPU
 
 
 #### 2. How to run the code
